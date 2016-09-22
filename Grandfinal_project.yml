@@ -1,0 +1,300 @@
+swagger: '2.0'
+info:
+  version: 'v1'
+  title: Project API Documentation
+  description:  |    
+    Collection of API related to projects
+ 
+
+    The following API facillates these features
+  contact:
+    name: Core Services
+    
+  license:
+    name: Sprout
+    url: https://www.cloudfactory.com
+host: projects.cloudfactory.com
+basePath: /v1
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+  
+
+
+paths:
+
+  /projects/{id}/members:
+
+    post:
+      summary: | 
+        The API should provide a method to add users to a project.
+       
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: uid of project
+          
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/listbody'
+          
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/listmember'
+          
+  /projects:
+    post:
+      summary: 
+        create a project
+
+      parameters:
+          - name: create
+            in: body
+            schema:
+              $ref: '#/definitions/projectbody'
+
+
+      responses:
+         '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/projectresponse'
+              
+              
+    get:
+      summary:
+         get list of projects
+
+
+      
+      responses:
+        '200':
+           description: OK
+           schema:
+             $ref: '#/definitions/getlistproject'
+              
+              
+              
+  /projects/{id}:
+    get:
+      summary:
+        get projects
+
+      parameters:
+       - name: id
+         in: path
+         description: id of calendar
+         required: true
+         type: string
+
+      responses:
+        '200':
+           description: OK
+           schema:
+             $ref: '#/definitions/getproject'
+             
+             
+  
+  /projects/:id/members:
+    get:
+      summary: List members
+      description: |
+        The Core Services should provide a method to list all users in a project.
+  
+  
+          
+      
+      responses:
+       '200':
+          description: An array of members
+          schema:
+            $ref: "#/definitions/members"
+  
+             
+  
+ 
+ 
+
+ 
+ 
+definitions:
+  listbody:
+    type: object
+    properties:
+      id:
+        type: string
+        
+      scope:
+        type: string
+      
+     
+  listmember:
+    type: object
+    properties:
+      id:
+        type: string
+        
+      scope:
+        type: string
+        
+      added_on:
+        type: string
+        format: date-time
+      type:
+        type: string
+        
+  
+        
+        
+  projectbody:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+
+        milestone:
+          type: string
+
+        start_date:
+          type: string
+          format: date-time
+
+        status:
+          type: string
+
+        custom_attributes:
+          type: array
+          items:
+            type: object
+            properties:
+              name: 
+                type: string
+              value: 
+                type: string
+
+  projectresponse:
+      type: object
+      properties:
+        id:
+          type: string
+
+        name: 
+          type: string
+
+        created_at:
+          type: string
+          format: date-time
+
+        updated_at:
+          type: string
+          format: date-time
+
+        created_by: 
+          type: string
+
+        description:
+          type: string
+
+        milestone:
+          type: string
+
+        start_date:
+          type: string
+          format: date-time
+
+        status:
+          type: string
+
+        basecamp_url:
+          type: string
+
+
+        type:
+          type: string
+
+
+        custom_attributes:
+          type: array
+          items:
+            type: object
+            properties:
+              name: 
+                type: string
+              value: 
+                type: string
+                
+  getproject:
+    type: object
+    properties:
+      name:
+        type: string
+
+      description:
+        type: string
+
+      created_on:
+        type: string
+        format: date-time
+
+      status:
+        type: string
+
+      custom_attributes:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+
+            value: 
+              type: string     
+              
+  getlistproject:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+
+  members:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+         
+        added on:
+          type: string
+          format: date-time
+      
+        scope: 
+          type: string    
+        type:
+          type: string
+
+  
+      
+   
+            
+    
+      
+      
+ 
